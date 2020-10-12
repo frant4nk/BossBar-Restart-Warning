@@ -84,7 +84,7 @@ public class Heliossbossbarrestart {
 
     public static int getTimeLeft()
     {
-        int[] timesArray = new int[]{21600, 43200, 64800, 86400}; //06pm, 12pm, 18pm, 24pm
+        int[] timesArray = new int[]{21240, 42840, 64440, 86040}; //05:54, 11:54, 17:54, 23:54
 
         LocalDateTime localDate = LocalDateTime.now();
         int hours = localDate.getHour();
