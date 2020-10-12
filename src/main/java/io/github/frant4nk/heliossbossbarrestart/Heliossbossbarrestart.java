@@ -15,6 +15,7 @@ import org.spongepowered.api.scheduler.SpongeExecutorService;
 import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.text.Text;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
@@ -37,6 +38,8 @@ public class Heliossbossbarrestart {
         logger.info("Starting boss bar plugin...");
 
         Task.Builder task = Task.builder();
+        int secondToRestart = getTimeLeft();
+        logger.info("Restarting in " + secondToRestart + " seconds");
         //Task.Builder stopServer = Task.builder();
         ServerBossBar bar = ServerBossBar.builder()
                 .color(BossBarColors.BLUE)
@@ -65,7 +68,7 @@ public class Heliossbossbarrestart {
                     }
                 }, 0, 1, TimeUnit.SECONDS);
             }
-        }).async().delay(21600 - 20, TimeUnit.SECONDS); //6 hours --> 21600 seconds minus warning time
+        }).async().delay(secondToRestart - 20, TimeUnit.SECONDS); //6 hours --> 21600 seconds minus warning time
         task.submit(this);
         /*
         stopServer.execute(new Runnable() {
@@ -77,5 +80,29 @@ public class Heliossbossbarrestart {
         }).async().delay(31, TimeUnit.SECONDS);
         stopServer.submit(this);
         */
+    }
+
+    public static int getTimeLeft()
+    {
+        int[] timesArray = new int[]{21600, 43200, 64800, 86400}; //06pm, 12pm, 18pm, 24pm
+
+        LocalDateTime localDate = LocalDateTime.now();
+        int hours = localDate.getHour();
+        int minutes = localDate.getMinute();
+        int seconds = localDate.getSecond();
+
+        int actual_time_in_seconds = (hours * 3600) + (minutes * 60) + seconds;
+
+        int aux = 0;
+        int diff = Integer.MAX_VALUE;
+        for (int i = 0; i < timesArray.length; i++)
+        {
+            aux = timesArray[i] - actual_time_in_seconds;
+            if (aux > 0 && aux < diff)
+            {
+                diff = aux;
+            }
+        }
+        return diff;
     }
 }
