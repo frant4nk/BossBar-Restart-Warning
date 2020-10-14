@@ -84,7 +84,7 @@ public class Heliossbossbarrestart {
 
     public static int getTimeLeft()
     {
-        int[] timesArray = new int[]{17940, 39540, 61140, 82740}; //04:58:50, 10:58:50, 16:58:50, 22:58:50
+        int[] timesArray = new int[]{17942, 39542, 61142, 82742}; //04:58:50, 10:58:50, 16:58:50, 22:58:50 GMT+0 //// Ptero is GMT+1 (Compared to Spain hour GMT+2)
 
         LocalDateTime localDate = LocalDateTime.now();
         int hours = localDate.getHour();
